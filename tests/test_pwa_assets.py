@@ -309,6 +309,10 @@ class PwaAssetTests(unittest.TestCase):
 
     def test_footer_contains_repo_commit_and_star_targets(self) -> None:
         html = Path("public/index.html").read_text(encoding="utf-8")
+        self.assertIn(
+            'rebuilt by <a href="https://github.com/karti001" target="_blank" rel="noopener noreferrer">karti001</a>',
+            html,
+        )
         self.assertIn("id=\"commitLink\"", html)
         self.assertIn("id=\"starCountText\"", html)
         self.assertIn("https://github.com/DevSecNinja/wazzup", html)
