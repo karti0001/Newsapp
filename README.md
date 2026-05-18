@@ -15,7 +15,7 @@ Wazzup is a GitHub-native personal news briefing app. It collects configured RSS
 ## Configuration
 
 - [config/sources.yml](config/sources.yml) maintains the RSS/Atom source registry with short source tags, broad category tags, source weights, and feed-specific interest hints.
-- [config/interests.yml](config/interests.yml) configures English summaries, 35-day retention, `Europe/Amsterdam`, and weighted interests for security, AI/developer platforms, cloud, and Microsoft.
+- [config/interests.yml](config/interests.yml) configures English summaries, 35-day retention, `Europe/Amsterdam`, and weighted interests for security, AI/developer platforms, cloud, Microsoft, football, and Formula 1.
 
 ## Implemented app
 

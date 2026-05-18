@@ -10,11 +10,11 @@ from wazzup.models import AppConfig, ContentItem, Interest, SourceConfig
 from wazzup.scoring import score_items
 
 
-def content_item(item_id: str, title: str, summary: str) -> ContentItem:
+def content_item(item_id: str, title: str, summary: str, source_id: str = "news") -> ContentItem:
     return ContentItem(
         schema_version=1,
         id=item_id,
-        source_id="news",
+        source_id=source_id,
         source_name="News",
         source_tag="NEWS",
         source_type="rss",
@@ -86,6 +86,59 @@ class ScoringTests(unittest.TestCase):
         self.assertTrue(
             any(reason.startswith("demotes Celebrity and entertainment") for reason in scored_by_id["security-glamour"].score_reasons)
         )
+
+    def test_football_scores_above_formula_one_for_sports_items(self) -> None:
+        sources = [
+            SourceConfig(
+                id="football",
+                name="Football",
+                source_tag="FOOT",
+                type="rss",
+                homepage_url="https://www.voetbalzone.nl/",
+                feed_url="https://www.voetbalzone.nl/rss.asp",
+                language="nl",
+                region="nl",
+                weight=1.0,
+            ),
+            SourceConfig(
+                id="formula-1",
+                name="Formula 1",
+                source_tag="F1",
+                type="rss",
+                homepage_url="https://www.formula1.com/",
+                feed_url="https://www.formula1.com/en/latest/all.xml",
+                language="en",
+                region="global",
+                weight=0.7,
+            ),
+        ]
+        app_config = AppConfig(
+            summary_language="en",
+            retention_days=35,
+            timezone="Europe/Amsterdam",
+            morning_local_time="07:00",
+            evening_local_time="20:00",
+            interests=[
+                Interest(id="football", name="Football", weight=1.0, keywords=["voetbal"]),
+                Interest(id="formula-1", name="Formula 1", weight=0.7, keywords=["formula 1"]),
+            ],
+        )
+        football_item = content_item("football", "Voetbal transfernieuws", "Nieuwe voetbaltransfer bevestigd.", "football")
+        formula_one_item = content_item("formula-1", "Formula 1 paddock news", "Formula 1 update from the paddock.", "formula-1")
+
+        scored_by_id = {
+            scored.item.id: scored
+            for scored in score_items(
+                [formula_one_item, football_item],
+                sources,
+                app_config,
+                datetime(2026, 5, 8, 11, tzinfo=UTC),
+            )
+        }
+
+        self.assertGreater(scored_by_id["football"].score, scored_by_id["formula-1"].score)
+        self.assertEqual(["football"], scored_by_id["football"].matched_interests)
+        self.assertEqual(["formula-1"], scored_by_id["formula-1"].matched_interests)
 
 
 if __name__ == "__main__":
