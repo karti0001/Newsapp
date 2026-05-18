@@ -224,8 +224,12 @@ class AiProviderTests(unittest.TestCase):
     @patch("wazzup.ai.subprocess.run")
     @patch("wazzup.ai.shutil.which", return_value="/usr/bin/copilot")
     def test_copilot_cli_uses_default_model_and_writer_agent(self, _which, run_mock) -> None:  # type: ignore[no-untyped-def]
+        previous_actions = os.environ.get("GITHUB_ACTIONS")
+        previous_token = os.environ.get("COPILOT_GITHUB_TOKEN")
         previous_model = os.environ.get("COPILOT_MODEL")
         previous_agent = os.environ.get("COPILOT_AGENT")
+        os.environ.pop("GITHUB_ACTIONS", None)
+        os.environ.pop("COPILOT_GITHUB_TOKEN", None)
         os.environ.pop("COPILOT_MODEL", None)
         os.environ.pop("COPILOT_AGENT", None)
 
@@ -259,6 +263,14 @@ class AiProviderTests(unittest.TestCase):
                 )
             )
         finally:
+            if previous_actions is None:
+                os.environ.pop("GITHUB_ACTIONS", None)
+            else:
+                os.environ["GITHUB_ACTIONS"] = previous_actions
+            if previous_token is None:
+                os.environ.pop("COPILOT_GITHUB_TOKEN", None)
+            else:
+                os.environ["COPILOT_GITHUB_TOKEN"] = previous_token
             if previous_model is None:
                 os.environ.pop("COPILOT_MODEL", None)
             else:
