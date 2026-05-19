@@ -49,7 +49,7 @@ interests:
       - windows
   - id: formula-1
     name: Formula 1
-    weight: 0.9
+    weight: 0.7
     keywords:
       - formula 1
       - formula one
@@ -77,17 +77,17 @@ interests:
       - inflation
       - central bank
       - mortgage rates
-  - id: nba
-    name: NBA
-    weight: 0.7
+  - id: football
+    name: Football
+    weight: 1.0
     keywords:
-      - nba
-      - basketball
-      - playoffs
-      - trade deadline
-      - injury report
-      - western conference
-      - eastern conference
+      - voetbal
+      - football
+      - soccer
+      - eredivisie
+      - champions league
+      - transfernieuws
+      - wedstrijdverslag
   - id: uk-politics
     name: UK politics
     weight: -0.8

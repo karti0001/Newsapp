@@ -426,7 +426,7 @@ sources:
     feedUrl: https://www.formula1.com/en/latest/all.xml
     language: en
     region: global
-    weight: 1.0
+    weight: 0.7
     categories:
       - sports
       - formula-1
@@ -448,7 +448,7 @@ sources:
     feedUrl: https://www.autosport.com/rss/f1/news/
     language: en
     region: global
-    weight: 1.0
+    weight: 0.7
     categories:
       - sports
       - formula-1
@@ -470,7 +470,7 @@ sources:
     feedUrl: https://www.motorsport.com/rss/f1/news/
     language: en
     region: global
-    weight: 0.95
+    weight: 0.7
     categories:
       - sports
       - formula-1
@@ -492,7 +492,7 @@ sources:
     feedUrl: https://www.racefans.net/feed/
     language: en
     region: global
-    weight: 0.95
+    weight: 0.7
     categories:
       - sports
       - formula-1
@@ -505,52 +505,49 @@ sources:
       - race calendar
     notes: "Independent Formula 1 and motorsport reporting with useful detail on rules and strategy."
 
-  - id: nba-official-news
-    name: NBA Official News
-    sourceTag: NBA
-    enabled: false
+  - id: vi-net-binnen
+    name: Voetbal International - Net binnen
+    sourceTag: VI
+    enabled: true
     type: rss
-    homepageUrl: https://www.nba.com/news
-    feedUrl: https://www.nba.com/news/rss.xml
-    language: en
-    region: us
+    homepageUrl: https://www.vi.nl/nieuws/net-binnen
+    feedUrl: https://www.vi.nl/rss/nieuws
+    language: nl
+    region: nl
     weight: 1.0
     categories:
       - sports
-      - nba
-      - basketball
+      - football
+      - soccer
     interestHints:
-      - NBA
-      - basketball
-      - trades
-      - injuries
-      - standings
-    fetch:
-      timeoutSeconds: 8
-    notes: "Official NBA news feed for league-wide headlines. Disabled because nba.com currently times out from the pipeline
-      environment; ESPN NBA remains enabled as the working NBA source."
+      - voetbal
+      - eredivisie
+      - transfernieuws
+      - interlands
+      - clubs
+    notes: "Voetbal International feed for fresh football headlines from the Net binnen news page."
 
-  - id: espn-nba
-    name: ESPN NBA
-    sourceTag: ESPN NBA
+  - id: voetbalzone
+    name: Voetbalzone
+    sourceTag: Voetbalzone
     enabled: true
     type: rss
-    homepageUrl: https://www.espn.com/nba/
-    feedUrl: https://www.espn.com/espn/rss/nba/news
-    language: en
-    region: us
-    weight: 0.95
+    homepageUrl: https://www.voetbalzone.nl/
+    feedUrl: https://www.voetbalzone.nl/rss.asp
+    language: nl
+    region: nl
+    weight: 1.0
     categories:
       - sports
-      - nba
-      - basketball
+      - football
+      - soccer
     interestHints:
-      - NBA
-      - basketball
-      - trades
-      - injuries
-      - game recaps
-    notes: "ESPN NBA news feed for mainstream league, trade, injury, and game coverage."
+      - voetbal
+      - eredivisie
+      - champions league
+      - transfers
+      - wedstrijdverslagen
+    notes: "Voetbalzone RSS feed for Dutch football news and match coverage."
 
   - id: github-blog
     name: GitHub Blog
